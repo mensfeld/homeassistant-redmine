@@ -82,7 +82,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         _LOGGER.debug(
             "Creating issue: project=%s, subject=%s, tracker=%s, priority=%s",
-            project_id, subject, tracker_id, priority_id
+            project_id,
+            subject,
+            tracker_id,
+            priority_id,
         )
 
         try:
