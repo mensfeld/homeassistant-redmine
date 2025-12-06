@@ -1,0 +1,36 @@
+create_issue:
+  fields:
+    subject:
+      required: true
+      example: "Buy more salt"
+      selector:
+        text:
+    project_id:
+      required: false
+      example: "shopping-list"
+      selector:
+        text:
+    description:
+      required: false
+      example: "Salt level is below 15%"
+      selector:
+        text:
+          multiline: true
+    tracker_id:
+      required: false
+      example: 1
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: box
+    priority_id:
+      required: false
+      example: 2
+      default: 2
+      selector:
+        number:
+          min: 1
+          max: 10
+          mode: box

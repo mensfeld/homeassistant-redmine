@@ -1,0 +1,66 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Redmine",
+        "description": "Enter your Redmine server details and API key.",
+        "data": {
+          "redmine_url": "Redmine URL",
+          "api_key": "API Key",
+          "default_project_id": "Default Project ID",
+          "default_tracker_id": "Default Tracker ID"
+        },
+        "data_description": {
+          "redmine_url": "Full URL to your Redmine instance (e.g., https://redmine.example.com)",
+          "api_key": "Your Redmine API key (found in My Account > API access key)",
+          "default_project_id": "Project identifier to use when not specified in service call",
+          "default_tracker_id": "Tracker ID to use when not specified (e.g., 1 for Bug)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Redmine server",
+      "invalid_auth": "Invalid API key",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This Redmine instance is already configured"
+    }
+  },
+  "services": {
+    "create_issue": {
+      "name": "Create issue",
+      "description": "Creates a new issue in Redmine.",
+      "fields": {
+        "subject": {
+          "name": "Subject",
+          "description": "The issue title/subject."
+        },
+        "project_id": {
+          "name": "Project ID",
+          "description": "Project identifier (overrides default from config)."
+        },
+        "description": {
+          "name": "Description",
+          "description": "Optional detailed description for the issue."
+        },
+        "tracker_id": {
+          "name": "Tracker ID",
+          "description": "Tracker ID (e.g., 1 for Bug, 2 for Feature). Overrides default from config."
+        },
+        "priority_id": {
+          "name": "Priority ID",
+          "description": "Priority ID (e.g., 1=Low, 2=Normal, 3=High)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "auth_error": {
+      "message": "Authentication failed. Please check your API key."
+    },
+    "api_error": {
+      "message": "Redmine API error: {error}"
+    }
+  }
+}

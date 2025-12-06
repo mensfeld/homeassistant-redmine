@@ -1,0 +1,13 @@
+{
+  "domain": "redmine",
+  "name": "Redmine",
+  "version": "1.0.0",
+  "documentation": "https://github.com/mensfeld/homeassistant-redmine",
+  "issue_tracker": "https://github.com/mensfeld/homeassistant-redmine/issues",
+  "codeowners": ["@mensfeld"],
+  "requirements": [],
+  "config_flow": true,
+  "single_config_entry": true,
+  "iot_class": "cloud_push",
+  "integration_type": "service"
+}

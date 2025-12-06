@@ -1,0 +1,47 @@
+[project]
+name = "homeassistant-redmine"
+version = "1.0.0"
+description = "Home Assistant custom integration for Redmine"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Maciej Mensfeld", email = "contact@mensfeld.pl"}
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/mensfeld/homeassistant-redmine"
+Repository = "https://github.com/mensfeld/homeassistant-redmine"
+Issues = "https://github.com/mensfeld/homeassistant-redmine/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
