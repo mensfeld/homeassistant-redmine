@@ -62,6 +62,7 @@ class TestRedmineClient:
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.raise_for_status = MagicMock()
+        mock_response.json = AsyncMock(return_value={"user": {"login": "testuser"}})
 
         mock_context = AsyncMock()
         mock_context.__aenter__.return_value = mock_response
