@@ -4,14 +4,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/mensfeld/homeassistant-redmine/actions/workflows/ci.yml/badge.svg)](https://github.com/mensfeld/homeassistant-redmine/actions/workflows/ci.yml)
 
-A Home Assistant custom integration for creating issues in Redmine via service calls. Perfect for home automation scenarios like "Create an issue to buy salt when salt level drops below 15%".
+A Home Assistant custom integration for creating issues in Redmine via actions. Perfect for home automation scenarios like "Create an issue to buy salt when salt level drops below 15%".
 
 ## Features
 
 - Create Redmine issues from Home Assistant automations
-- Config flow for easy UI-based setup (no YAML editing required)
+- Two-step config flow with automatic discovery of projects, trackers, and priorities
 - Default project with per-call override support
-- Support for custom trackers and priorities
+- No need to look up numeric IDs - select from dropdown menus
 
 ## Installation
 
@@ -37,15 +37,17 @@ A Home Assistant custom integration for creating issues in Redmine via service c
 1. Go to **Settings** > **Devices & Services**
 2. Click **+ Add Integration**
 3. Search for **Redmine**
-4. Enter your Redmine details:
+4. **Step 1 - Connection**: Enter your Redmine credentials:
    - **Redmine URL**: Full URL to your Redmine instance (e.g., `https://redmine.example.com`)
    - **API Key**: Your Redmine API key (found in My Account > API access key)
-   - **Default Project ID**: Project identifier to use when not specified in service calls
-   - **Default Tracker ID**: Tracker ID to use by default (e.g., 1 for Bug)
+5. **Step 2 - Defaults**: Select default values from dropdown menus (automatically fetched from your Redmine instance):
+   - **Default Project**: Project to use when not specified in action calls
+   - **Default Tracker**: Tracker to use by default (e.g., Bug, Feature)
+   - **Default Priority**: Priority to use by default
 
 ## Usage
 
-### Service: `redmine.create_issue`
+### Action: `redmine.create_issue`
 
 Create a new issue in Redmine.
 
@@ -111,12 +113,11 @@ automation:
           tracker_id: 2
 ```
 
-## Finding Your Redmine IDs
+## Finding Your API Key
 
-- **API Key**: Log into Redmine > My Account > API access key (right sidebar)
-- **Project ID**: The URL slug of your project (e.g., `my-project` from `https://redmine.example.com/projects/my-project`)
-- **Tracker IDs**: Administration > Trackers (typically: 1=Bug, 2=Feature, 3=Support)
-- **Priority IDs**: Usually 1=Low, 2=Normal, 3=High, 4=Urgent, 5=Immediate
+Log into Redmine > My Account > API access key (right sidebar)
+
+Note: Projects, trackers, and priorities are automatically discovered from your Redmine instance during setup.
 
 ## Troubleshooting
 
