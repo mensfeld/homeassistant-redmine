@@ -62,10 +62,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Register the service
     async def async_create_issue(call: ServiceCall) -> None:
         """Handle the create_issue service call."""
+        _LOGGER.debug("create_issue service called with data: %s", call.data)
+
         # Get the first (and only) config entry
         entry_data = next(iter(hass.data[DOMAIN].values()))
         client: RedmineClient = entry_data["client"]
         config = entry_data["config"]
+
+        _LOGGER.debug("Using config: %s", config)
 
         # Get parameters with defaults from config
         project_id = call.data.get(ATTR_PROJECT_ID, config[CONF_DEFAULT_PROJECT_ID])
@@ -74,6 +78,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         description = call.data.get(ATTR_DESCRIPTION)
         priority_id = call.data.get(
             ATTR_PRIORITY_ID, config.get(CONF_DEFAULT_PRIORITY_ID, DEFAULT_PRIORITY_ID)
+        )
+
+        _LOGGER.debug(
+            "Creating issue: project=%s, subject=%s, tracker=%s, priority=%s",
+            project_id, subject, tracker_id, priority_id
         )
 
         try:
