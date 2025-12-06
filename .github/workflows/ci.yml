@@ -74,7 +74,7 @@ jobs:
         uses: hacs/action@6f81caf1dd4cc0f615444dba4d4a3ceaa22db99c # main
         with:
           category: integration
-          ignore: brands,topics
+          ignore: brands topics
 
   ci-success:
     name: CI Success
