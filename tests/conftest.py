@@ -1,4 +1,5 @@
 """Pytest configuration for Redmine integration tests."""
+
 import pytest
 
 

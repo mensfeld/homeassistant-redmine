@@ -1,4 +1,5 @@
 """Constants for the Redmine integration."""
+
 from typing import Final
 
 DOMAIN: Final = "redmine"

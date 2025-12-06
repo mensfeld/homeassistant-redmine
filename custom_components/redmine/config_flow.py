@@ -1,23 +1,23 @@
 """Config flow for Redmine integration."""
+
 from __future__ import annotations
 
 import logging
 from typing import Any
 
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import RedmineClient, RedmineAuthError, RedmineConnectionError
+from .api import RedmineAuthError, RedmineClient, RedmineConnectionError
 from .const import (
-    DOMAIN,
-    CONF_REDMINE_URL,
     CONF_API_KEY,
     CONF_DEFAULT_PROJECT_ID,
     CONF_DEFAULT_TRACKER_ID,
+    CONF_REDMINE_URL,
     DEFAULT_TRACKER_ID,
+    DOMAIN,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -37,9 +37,7 @@ class RedmineConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
+    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         """Handle the initial step."""
         errors: dict[str, str] = {}
 

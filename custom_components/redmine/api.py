@@ -1,10 +1,11 @@
 """Redmine API client."""
+
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-from aiohttp import ClientSession, ClientResponseError, ClientError
+from aiohttp import ClientError, ClientResponseError, ClientSession
 
 _LOGGER = logging.getLogger(__name__)
 

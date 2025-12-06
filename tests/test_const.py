@@ -1,23 +1,24 @@
 """Tests for the Redmine integration constants."""
-import sys
+
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "custom_components"))
 
 from redmine.const import (
-    DOMAIN,
-    CONF_REDMINE_URL,
+    ATTR_DESCRIPTION,
+    ATTR_PRIORITY_ID,
+    ATTR_PROJECT_ID,
+    ATTR_SUBJECT,
+    ATTR_TRACKER_ID,
     CONF_API_KEY,
     CONF_DEFAULT_PROJECT_ID,
     CONF_DEFAULT_TRACKER_ID,
-    ATTR_PROJECT_ID,
-    ATTR_SUBJECT,
-    ATTR_DESCRIPTION,
-    ATTR_TRACKER_ID,
-    ATTR_PRIORITY_ID,
-    SERVICE_CREATE_ISSUE,
-    DEFAULT_TRACKER_ID,
+    CONF_REDMINE_URL,
     DEFAULT_PRIORITY_ID,
+    DEFAULT_TRACKER_ID,
+    DOMAIN,
+    SERVICE_CREATE_ISSUE,
 )
 
 

@@ -1,17 +1,18 @@
 """Tests for the Redmine API client."""
+
+import os
+import sys
+from unittest.mock import AsyncMock, MagicMock
+
 import pytest
 from aiohttp import ClientSession
-from unittest.mock import AsyncMock, MagicMock, patch
-
-import sys
-import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "custom_components"))
 
 from redmine.api import (
-    RedmineClient,
     RedmineApiError,
     RedmineAuthError,
+    RedmineClient,
     RedmineConnectionError,
 )
 
@@ -88,9 +89,7 @@ class TestRedmineClient:
         mock_response = AsyncMock()
         mock_response.status = 201
         mock_response.raise_for_status = MagicMock()
-        mock_response.json = AsyncMock(
-            return_value={"issue": {"id": 123, "subject": "Test Issue"}}
-        )
+        mock_response.json = AsyncMock(return_value={"issue": {"id": 123, "subject": "Test Issue"}})
 
         mock_context = AsyncMock()
         mock_context.__aenter__.return_value = mock_response

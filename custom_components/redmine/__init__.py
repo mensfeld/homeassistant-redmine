@@ -1,30 +1,30 @@
 """The Redmine integration."""
+
 from __future__ import annotations
 
 import logging
 
 import voluptuous as vol
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import RedmineClient, RedmineApiError, RedmineAuthError
+from .api import RedmineApiError, RedmineAuthError, RedmineClient
 from .const import (
-    DOMAIN,
-    CONF_REDMINE_URL,
+    ATTR_DESCRIPTION,
+    ATTR_PRIORITY_ID,
+    ATTR_PROJECT_ID,
+    ATTR_SUBJECT,
+    ATTR_TRACKER_ID,
     CONF_API_KEY,
     CONF_DEFAULT_PROJECT_ID,
     CONF_DEFAULT_TRACKER_ID,
-    ATTR_PROJECT_ID,
-    ATTR_SUBJECT,
-    ATTR_DESCRIPTION,
-    ATTR_TRACKER_ID,
-    ATTR_PRIORITY_ID,
-    SERVICE_CREATE_ISSUE,
+    CONF_REDMINE_URL,
     DEFAULT_PRIORITY_ID,
+    DOMAIN,
+    SERVICE_CREATE_ISSUE,
 )
 
 _LOGGER = logging.getLogger(__name__)
