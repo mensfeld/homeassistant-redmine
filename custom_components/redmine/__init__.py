@@ -19,6 +19,7 @@ from .const import (
     ATTR_SUBJECT,
     ATTR_TRACKER_ID,
     CONF_API_KEY,
+    CONF_DEFAULT_PRIORITY_ID,
     CONF_DEFAULT_PROJECT_ID,
     CONF_DEFAULT_TRACKER_ID,
     CONF_REDMINE_URL,
@@ -71,7 +72,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         subject = call.data[ATTR_SUBJECT]
         tracker_id = call.data.get(ATTR_TRACKER_ID, config[CONF_DEFAULT_TRACKER_ID])
         description = call.data.get(ATTR_DESCRIPTION)
-        priority_id = call.data.get(ATTR_PRIORITY_ID, DEFAULT_PRIORITY_ID)
+        priority_id = call.data.get(
+            ATTR_PRIORITY_ID, config.get(CONF_DEFAULT_PRIORITY_ID, DEFAULT_PRIORITY_ID)
+        )
 
         try:
             result = await client.create_issue(

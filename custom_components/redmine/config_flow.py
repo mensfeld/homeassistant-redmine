@@ -13,9 +13,11 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from .api import RedmineAuthError, RedmineClient, RedmineConnectionError
 from .const import (
     CONF_API_KEY,
+    CONF_DEFAULT_PRIORITY_ID,
     CONF_DEFAULT_PROJECT_ID,
     CONF_DEFAULT_TRACKER_ID,
     CONF_REDMINE_URL,
+    DEFAULT_PRIORITY_ID,
     DEFAULT_TRACKER_ID,
     DOMAIN,
 )
@@ -28,6 +30,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_API_KEY): str,
         vol.Required(CONF_DEFAULT_PROJECT_ID): str,
         vol.Optional(CONF_DEFAULT_TRACKER_ID, default=DEFAULT_TRACKER_ID): int,
+        vol.Optional(CONF_DEFAULT_PRIORITY_ID, default=DEFAULT_PRIORITY_ID): int,
     }
 )
 
@@ -80,6 +83,9 @@ class RedmineConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         CONF_DEFAULT_PROJECT_ID: user_input[CONF_DEFAULT_PROJECT_ID],
                         CONF_DEFAULT_TRACKER_ID: user_input.get(
                             CONF_DEFAULT_TRACKER_ID, DEFAULT_TRACKER_ID
+                        ),
+                        CONF_DEFAULT_PRIORITY_ID: user_input.get(
+                            CONF_DEFAULT_PRIORITY_ID, DEFAULT_PRIORITY_ID
                         ),
                     },
                 )

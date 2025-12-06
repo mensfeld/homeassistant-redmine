@@ -122,7 +122,7 @@ class RedmineClient:
                 "project_id": project_id,
                 "subject": subject,
                 "tracker_id": tracker_id,
-                "priority_id": priority_id or 2,  # Default to Normal priority
+                "priority_id": priority_id if priority_id is not None else 2,
             }
         }
 

@@ -9,6 +9,7 @@ CONF_REDMINE_URL: Final = "redmine_url"
 CONF_API_KEY: Final = "api_key"
 CONF_DEFAULT_PROJECT_ID: Final = "default_project_id"
 CONF_DEFAULT_TRACKER_ID: Final = "default_tracker_id"
+CONF_DEFAULT_PRIORITY_ID: Final = "default_priority_id"
 
 # Service attributes
 ATTR_PROJECT_ID: Final = "project_id"
