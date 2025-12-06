@@ -122,13 +122,12 @@ class RedmineClient:
                 "project_id": project_id,
                 "subject": subject,
                 "tracker_id": tracker_id,
+                "priority_id": priority_id or 2,  # Default to Normal priority
             }
         }
 
         if description:
             payload["issue"]["description"] = description
-        if priority_id:
-            payload["issue"]["priority_id"] = priority_id
 
         try:
             async with self._session.post(
