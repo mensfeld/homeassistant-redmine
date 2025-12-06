@@ -42,8 +42,10 @@ class RedmineConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            # Normalize URL (remove trailing slash)
+            # Normalize URL (remove trailing slash, add http:// if missing)
             redmine_url = user_input[CONF_REDMINE_URL].rstrip("/")
+            if not redmine_url.startswith(("http://", "https://")):
+                redmine_url = f"http://{redmine_url}"
 
             # Validate the connection
             session = async_get_clientsession(self.hass)
