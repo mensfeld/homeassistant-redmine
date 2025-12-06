@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from aiohttp import ClientError, ClientResponseError, ClientSession
+from aiohttp import ClientError, ClientResponseError, ClientSession, ClientSSLError
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -60,22 +60,39 @@ class RedmineClient:
             RedmineAuthError: If authentication fails.
             RedmineConnectionError: If connection fails.
         """
+        url = f"{self._base_url}/users/current.json"
+        _LOGGER.debug("Validating connection to %s", url)
+
         try:
             async with self._session.get(
-                f"{self._base_url}/users/current.json",
+                url,
                 headers=self._headers,
                 timeout=10,
+                ssl=False,  # Allow self-signed certificates
             ) as response:
+                _LOGGER.debug("Response status: %s", response.status)
                 if response.status == 401:
                     raise RedmineAuthError("Invalid API key")
                 response.raise_for_status()
+                data = await response.json()
+                _LOGGER.debug("Connected as user: %s", data.get("user", {}).get("login"))
                 return True
+        except RedmineAuthError:
+            raise
+        except ClientSSLError as err:
+            _LOGGER.error("SSL error connecting to %s: %s", url, err)
+            raise RedmineConnectionError(f"SSL error: {err}") from err
         except ClientResponseError as err:
+            _LOGGER.error("HTTP error %s from %s: %s", err.status, url, err.message)
             if err.status == 401:
                 raise RedmineAuthError("Invalid API key") from err
-            raise RedmineConnectionError(f"API error: {err.status}") from err
+            raise RedmineConnectionError(f"HTTP error {err.status}: {err.message}") from err
         except ClientError as err:
+            _LOGGER.error("Connection error to %s: %s", url, err)
             raise RedmineConnectionError(f"Connection failed: {err}") from err
+        except Exception as err:
+            _LOGGER.error("Unexpected error connecting to %s: %s", url, err)
+            raise RedmineConnectionError(f"Unexpected error: {err}") from err
 
     async def create_issue(
         self,
@@ -119,6 +136,7 @@ class RedmineClient:
                 headers=self._headers,
                 json=payload,
                 timeout=30,
+                ssl=False,  # Allow self-signed certificates
             ) as response:
                 if response.status == 401:
                     raise RedmineAuthError("Invalid API key")

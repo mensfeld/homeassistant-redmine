@@ -55,12 +55,14 @@ class RedmineConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             try:
                 await client.validate_connection()
-            except RedmineAuthError:
+            except RedmineAuthError as err:
+                _LOGGER.error("Authentication failed: %s", err)
                 errors["api_key"] = "invalid_auth"
-            except RedmineConnectionError:
+            except RedmineConnectionError as err:
+                _LOGGER.error("Connection failed to %s: %s", redmine_url, err)
                 errors["redmine_url"] = "cannot_connect"
-            except Exception:
-                _LOGGER.exception("Unexpected exception")
+            except Exception as err:
+                _LOGGER.exception("Unexpected exception: %s", err)
                 errors["base"] = "unknown"
 
             if not errors:
