@@ -144,6 +144,76 @@ class TestRedmineClient:
                 tracker_id=1,
             )
 
+    @pytest.mark.asyncio
+    async def test_get_projects_success(self, redmine_client, mock_session):
+        """Test successful projects fetch."""
+        mock_response = AsyncMock()
+        mock_response.status = 200
+        mock_response.raise_for_status = MagicMock()
+        mock_response.json = AsyncMock(
+            return_value={
+                "projects": [
+                    {"id": 1, "identifier": "project-1", "name": "Project One"},
+                    {"id": 2, "identifier": "project-2", "name": "Project Two"},
+                ]
+            }
+        )
+
+        mock_context = AsyncMock()
+        mock_context.__aenter__.return_value = mock_response
+        mock_session.get.return_value = mock_context
+
+        result = await redmine_client.get_projects()
+        assert len(result) == 2
+        assert result[0]["identifier"] == "project-1"
+
+    @pytest.mark.asyncio
+    async def test_get_priorities_success(self, redmine_client, mock_session):
+        """Test successful priorities fetch."""
+        mock_response = AsyncMock()
+        mock_response.status = 200
+        mock_response.raise_for_status = MagicMock()
+        mock_response.json = AsyncMock(
+            return_value={
+                "issue_priorities": [
+                    {"id": 1, "name": "Low"},
+                    {"id": 2, "name": "Normal", "is_default": True},
+                    {"id": 3, "name": "High"},
+                ]
+            }
+        )
+
+        mock_context = AsyncMock()
+        mock_context.__aenter__.return_value = mock_response
+        mock_session.get.return_value = mock_context
+
+        result = await redmine_client.get_priorities()
+        assert len(result) == 3
+        assert result[1]["is_default"] is True
+
+    @pytest.mark.asyncio
+    async def test_get_trackers_success(self, redmine_client, mock_session):
+        """Test successful trackers fetch."""
+        mock_response = AsyncMock()
+        mock_response.status = 200
+        mock_response.raise_for_status = MagicMock()
+        mock_response.json = AsyncMock(
+            return_value={
+                "trackers": [
+                    {"id": 1, "name": "Bug"},
+                    {"id": 2, "name": "Feature"},
+                ]
+            }
+        )
+
+        mock_context = AsyncMock()
+        mock_context.__aenter__.return_value = mock_response
+        mock_session.get.return_value = mock_context
+
+        result = await redmine_client.get_trackers()
+        assert len(result) == 2
+        assert result[0]["name"] == "Bug"
+
 
 class TestExceptions:
     """Tests for custom exceptions."""

@@ -50,6 +50,57 @@ class RedmineClient:
             "Content-Type": "application/json",
         }
 
+    async def get_projects(self) -> list[dict]:
+        """Fetch all accessible projects from Redmine."""
+        try:
+            async with self._session.get(
+                f"{self._base_url}/projects.json",
+                headers=self._headers,
+                timeout=10,
+                ssl=False,
+            ) as response:
+                if response.status == 401:
+                    raise RedmineAuthError("Invalid API key")
+                response.raise_for_status()
+                data = await response.json()
+                return data.get("projects", [])
+        except ClientError as err:
+            raise RedmineConnectionError(f"Failed to fetch projects: {err}") from err
+
+    async def get_priorities(self) -> list[dict]:
+        """Fetch issue priorities from Redmine."""
+        try:
+            async with self._session.get(
+                f"{self._base_url}/enumerations/issue_priorities.json",
+                headers=self._headers,
+                timeout=10,
+                ssl=False,
+            ) as response:
+                if response.status == 401:
+                    raise RedmineAuthError("Invalid API key")
+                response.raise_for_status()
+                data = await response.json()
+                return data.get("issue_priorities", [])
+        except ClientError as err:
+            raise RedmineConnectionError(f"Failed to fetch priorities: {err}") from err
+
+    async def get_trackers(self) -> list[dict]:
+        """Fetch trackers from Redmine."""
+        try:
+            async with self._session.get(
+                f"{self._base_url}/trackers.json",
+                headers=self._headers,
+                timeout=10,
+                ssl=False,
+            ) as response:
+                if response.status == 401:
+                    raise RedmineAuthError("Invalid API key")
+                response.raise_for_status()
+                data = await response.json()
+                return data.get("trackers", [])
+        except ClientError as err:
+            raise RedmineConnectionError(f"Failed to fetch trackers: {err}") from err
+
     async def validate_connection(self) -> bool:
         """Validate the connection and API key by fetching current user.
 

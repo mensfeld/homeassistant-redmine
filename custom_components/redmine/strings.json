@@ -6,23 +6,32 @@
         "description": "Enter your Redmine server details and API key.",
         "data": {
           "redmine_url": "Redmine URL",
-          "api_key": "API Key",
-          "default_project_id": "Default Project ID",
-          "default_tracker_id": "Default Tracker ID",
-          "default_priority_id": "Default Priority ID"
+          "api_key": "API Key"
         },
         "data_description": {
           "redmine_url": "Full URL to your Redmine instance (e.g., https://redmine.example.com)",
-          "api_key": "Your Redmine API key (found in My Account > API access key)",
-          "default_project_id": "Project identifier to use when not specified in service call",
-          "default_tracker_id": "Tracker ID to use when not specified (e.g., 1 for Bug)",
-          "default_priority_id": "Priority ID to use when not specified (e.g., 2 for Normal)"
+          "api_key": "Your Redmine API key (found in My Account > API access key)"
+        }
+      },
+      "options": {
+        "title": "Configure Defaults",
+        "description": "Select default values for issue creation.",
+        "data": {
+          "default_project_id": "Default Project",
+          "default_tracker_id": "Default Tracker",
+          "default_priority_id": "Default Priority"
+        },
+        "data_description": {
+          "default_project_id": "Project to use when not specified in action call",
+          "default_tracker_id": "Tracker to use when not specified",
+          "default_priority_id": "Priority to use when not specified"
         }
       }
     },
     "error": {
       "cannot_connect": "Failed to connect to Redmine server",
       "invalid_auth": "Invalid API key",
+      "cannot_fetch_options": "Connected but failed to fetch projects/trackers/priorities",
       "unknown": "Unexpected error"
     },
     "abort": {
