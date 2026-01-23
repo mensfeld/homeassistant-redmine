@@ -5,13 +5,27 @@
   ],
   "packageRules": [
     {
-      "matchDepPatterns": ["*"],
+      "matchDepPatterns": [
+        "*"
+      ],
       "minimumReleaseAge": "7 days"
     },
     {
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "pinDigests": true
+    },
+    {
+      "description": "Group ruby/setup-ruby action with ruby version updates",
+      "matchPackageNames": [
+        "ruby/setup-ruby",
+        "ruby"
+      ],
+      "groupName": "ruby setup"
     }
   ],
-  "schedule": ["before 5am on monday"]
+  "schedule": [
+    "before 5am on monday"
+  ]
 }
