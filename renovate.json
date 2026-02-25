@@ -5,10 +5,10 @@
   ],
   "packageRules": [
     {
-      "matchDepPatterns": [
-        "*"
-      ],
-      "minimumReleaseAge": "7 days"
+      "minimumReleaseAge": "7 days",
+      "matchDepNames": [
+        "/*/"
+      ]
     },
     {
       "matchManagers": [
