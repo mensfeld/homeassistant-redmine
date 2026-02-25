@@ -25,7 +25,5 @@
       "groupName": "ruby setup"
     }
   ],
-  "schedule": [
-    "before 5am on monday"
-  ]
+  "minimumReleaseAge": "7 days"
 }
