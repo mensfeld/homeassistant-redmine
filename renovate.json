@@ -15,15 +15,6 @@
         "github-actions"
       ],
       "pinDigests": true
-    },
-    {
-      "description": "Group ruby/setup-ruby action with ruby version updates",
-      "matchPackageNames": [
-        "ruby/setup-ruby",
-        "ruby"
-      ],
-      "groupName": "ruby setup",
-      "internalChecksFilter": "strict"
     }
   ],
   "labels": [
@@ -31,6 +22,9 @@
   ],
   "minimumReleaseAge": "7 days",
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
+    "schedule": [
+      "before 4am on the first day of the month"
+    ]
   }
 }
